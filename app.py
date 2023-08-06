@@ -26,7 +26,7 @@ def index():
         try:
             s3_client.download_file(S3_BUCKET_NAME, file_key, tmp_file_path)
             message = f'{file_key} downloaded successfully'
-            return send_from_directory('/tmp', file_key, as_attachment=True)
+            return send_from_directory('/tmp', file_key, as_attachment=True, download_name=file_key)
         except:
             message = f'No luck finding {file_key}'
 
