@@ -1,0 +1,6 @@
+version: '3'
+services:
+  flask_app:
+    image: razdahan31/aws_s3_flask_app:latest
+    ports:
+      - "80:80"
