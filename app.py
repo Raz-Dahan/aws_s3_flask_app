@@ -1,5 +1,4 @@
 import os
-import tempfile
 from flask import Flask, render_template, request, send_from_directory
 from dotenv import load_dotenv
 import boto3
@@ -22,17 +21,16 @@ def index():
     if request.method == 'POST':
         search_name = request.form['search_name']
         file_key = f'{search_name}.jpg'
+        tmp_file_path = os.path.join('/tmp', file_key)
 
         try:
-            tmp_file = tempfile.NamedTemporaryFile(delete=False)
-            s3_client.download_file(S3_BUCKET_NAME, file_key, tmp_file.name)
-            tmp_file.close()
-
-            return send_from_directory(tempfile.gettempdir(), os.path.basename(tmp_file.name), as_attachment=True)
+            s3_client.download_file(S3_BUCKET_NAME, file_key, tmp_file_path)
+            message = f'{file_key} downloaded successfully'
+            return send_from_directory('/tmp', file_key, as_attachment=True)
         except:
             message = f'No luck finding {file_key}'
 
     return render_template('index.html', message=message)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(debug=True)
