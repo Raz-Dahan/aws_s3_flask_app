@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AWS S3 Image Downloader</title>
+</head>
+
+<body>
+    <h1>AWS S3 Image Downloader</h1>
+    <form method="POST">
+        <label for="search_name">Search for JPG:</label>
+        <input type="text" id="search_name" name="search_name">
+        <button type="submit">Download</button>
+    </form>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+</body>
+
+</html>
