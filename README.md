@@ -58,7 +58,7 @@ Before you begin, ensure you have met the following requirements:
    docker-compose up -d
    ```
 
-2. Access the application in your web browser at `http://localhost`.
+2. Access the application in your VM's IP at `http://VM_IP:80`.
 
 3. Enter a search term for the image you want to download and click the "Download" button.
 
