@@ -33,10 +33,10 @@ Before you begin, ensure you have met the following requirements:
 2. Install the required Python packages:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r app/requirements.txt
    ```
 
-3. Set up your AWS credentials and S3 bucket name by creating a `.env` file in the project directory. Example:
+3. Set up your AWS credentials and S3 bucket name by creating a `.env` file in the `app/` directory. Example:
 
    ```plaintext
    AWS_ACCESS_KEY_ID=your_access_key_id
@@ -55,10 +55,11 @@ Before you begin, ensure you have met the following requirements:
    Alternatively, if you're using Docker, you can run the application as a Docker container:
 
    ```bash
-   docker-compose up -d
+   chmod u+x deploy.sh
+   ./deploy.sh
    ```
 
-2. Access the application in your VM's IP at `http://VM_IP:80`.
+2. Access the application in your VM's IP at `http://IP:80`.
 
 3. Enter a search term for the image you want to download and click the "Download" button.
 
