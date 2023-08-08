@@ -19,7 +19,6 @@ Flask Image Downloader is a simple web application built with Flask and Boto3 th
 Before you begin, ensure you have met the following requirements:
 
 - Python 3.8 or higher is installed on your system.
-- Docker and Docker Compose are installed if you plan to use Docker.
 
 ### Installation
 
