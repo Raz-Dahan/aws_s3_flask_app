@@ -3,7 +3,7 @@
 INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 RSA_Key="~/.ssh/raz-key.pem"
 
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ec2-user@$INSTANCE_IP "
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
 sudo apt update -y
 if ! command -v git &> /dev/null; then
     echo "Git is not installed. Installing Git..."
@@ -26,7 +26,7 @@ if ! command -v docker-compose &> /dev/null; then
 else
     echo 'Docker Compose is already installed.'
 fi
-https://github.com/Raz-Dahan/flask_image_downloader.git
+git clone https://github.com/Raz-Dahan/flask_image_downloader.git
 cd flask_image_downloader
 docker build -t image_downloader_app:latest .
 docker-compose up -d
