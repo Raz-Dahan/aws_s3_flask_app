@@ -16,6 +16,8 @@ if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com -o get-docker.sh
     sudo sh get-docker.sh
 else
+sudo systemctl docker start
+sudo systemctl docker start
     echo 'Docker is already installed.'
 fi
 if ! command -v docker-compose &> /dev/null; then
