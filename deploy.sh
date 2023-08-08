@@ -39,6 +39,7 @@ else
     cd flask_image_downloader
     if git pull --ff-only; then
         echo "Changes pulled successfully."
+        cp /home/ubuntu/.env .env
         sudo docker-compose build
     else
         echo "No changes in the repository."
