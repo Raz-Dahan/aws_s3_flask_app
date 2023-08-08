@@ -28,8 +28,15 @@ if ! command -v docker-compose &> /dev/null; then
 else
     echo 'Docker Compose is already installed.'
 fi
-git clone https://github.com/Raz-Dahan/flask_image_downloader.git
-cd flask_image_downloader
+if [ ! -d flask_image_downloader ]; then
+    echo "Cloning repository..."
+    git clone https://github.com/Raz-Dahan/flask_image_downloader.git
+    cd flask_image_downloader
+else
+    echo "Repository directory already exists. Pulling latest changes..."
+    cd flask_image_downloader
+    git pull
+fi
 docker build -t image_downloader_app:latest .
 docker-compose up -d
 "
