@@ -1,6 +1,9 @@
 version: '3'
 services:
   flask_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: image_downloader_app:latest
     ports:
       - "80:80"

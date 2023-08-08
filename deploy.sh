@@ -37,7 +37,7 @@ else
     cd flask_image_downloader
     if git pull --ff-only; then
         echo "Changes pulled successfully."
-        sudo docker build -t image_downloader_app:latest .
+        docker-compose build
     else
         echo "No changes in the repository."
     fi
