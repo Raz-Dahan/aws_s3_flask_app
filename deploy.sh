@@ -13,8 +13,7 @@ else
 fi
 if ! command -v docker &> /dev/null; then
     echo 'Docker is not installed. Installing Docker...'
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sudo sh get-docker.sh
+    sudo apt install docker.io -y
     sudo systemctl start docker
     sudo systemctl enable docker
 else
@@ -32,11 +31,21 @@ if [ ! -d flask_image_downloader ]; then
     echo "Cloning repository..."
     git clone https://github.com/Raz-Dahan/flask_image_downloader.git
     cd flask_image_downloader
+    sudo docker build -t image_downloader_app:latest .
 else
     echo "Repository directory already exists. Pulling latest changes..."
     cd flask_image_downloader
-    git pull
+    if git pull --ff-only; then
+        echo "Changes pulled successfully."
+        sudo docker build -t image_downloader_app:latest .
+    else
+        echo "No changes in the repository."
+    fi
 fi
-docker build -t image_downloader_app:latest .
-docker-compose up -d
+if docker ps | grep -q image_downloader_app; then
+    docker-compose down
+    docker-compose up -d
+else
+    docker-compose up -d
+fi
 "
