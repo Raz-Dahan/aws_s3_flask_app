@@ -33,7 +33,7 @@ if [ ! -d flask_image_downloader ]; then
     git clone https://github.com/Raz-Dahan/flask_image_downloader.git
     cd flask_image_downloader
     sudo docker build -t image_downloader_app:latest .
-    mv ~/.env .env
+    mv /home/ubuntu/.env .env
 else
     echo "Repository directory already exists. Pulling latest changes..."
     cd flask_image_downloader
