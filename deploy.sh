@@ -42,10 +42,10 @@ else
         echo "No changes in the repository."
     fi
 fi
-if docker ps | grep -q image_downloader_app; then
-    docker-compose down
-    docker-compose up -d
+if sudo docker ps | grep -q image_downloader_app; then
+    sudo docker-compose down
+    sudo docker-compose up -d
 else
-    docker-compose up -d
+    sudo docker-compose up -d
 fi
 "
