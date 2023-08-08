@@ -3,6 +3,7 @@
 INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 RSA_Key="~/.ssh/raz-key.pem"
 
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubunutu@$INSTANCE_IP:/
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
 sudo apt update -y
 if ! command -v git &> /dev/null; then
@@ -32,6 +33,7 @@ if [ ! -d flask_image_downloader ]; then
     git clone https://github.com/Raz-Dahan/flask_image_downloader.git
     cd flask_image_downloader
     sudo docker build -t image_downloader_app:latest .
+    mv /.env .env
 else
     echo "Repository directory already exists. Pulling latest changes..."
     cd flask_image_downloader
