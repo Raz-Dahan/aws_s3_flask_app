@@ -1,9 +1,11 @@
 #!/bin/bash
 
-INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
+REGION="eu-central-1"
+INSTANCE_IP=$(aws ec2 describe-instances --region $REGION --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 RSA_Key="~/.ssh/raz-key.pem"
+ENV_Path="~/Documents/.env"
 
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key $ENV_Path ubuntu@$INSTANCE_IP:/home/ubuntu
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
 sudo apt update -y
 if ! command -v git &> /dev/null; then

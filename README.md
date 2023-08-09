@@ -1,6 +1,7 @@
 # Flask Image Downloader
 
-Flask Image Downloader is a simple web application built with Flask and Boto3 that allows users to search for and download images from an AWS S3 bucket.
+Flask Image Downloader is a simple web application built with Flask and Boto3 that allows users to search for and download images from an AWS S3 bucket.<br />
+The app have loadbalancer and monitored by Prometheus and Grafana.
 
 ## Table of Contents
 
@@ -16,17 +17,22 @@ Flask Image Downloader is a simple web application built with Flask and Boto3 th
 
 ### Prerequisites
 
-Before you begin, ensure you have met the following requirements:
+Before you begin, ensure you have met the following requirements on your system:
 
-- Python 3.8 or higher is installed on your system.
+- Python 3.8 or higher is installed.
+- AWS account.
+- `aws-cli` installed and configured.
+- Public AWS S3 bucket
+- EC2 with `tier:app` tag. feel free to use my `run_instance.sh` to setup your EC2.<br/>
+  Change `REGION` in `deploy.sh` if needed.
 
 ### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/Raz-Dahan/flask_image_downloader.git
-   cd flask_image_downloader
+   git clone https://github.com/Raz-Dahan/image_downloader.git
+   cd image_downloader
    ```
 
 2. Install the required Python packages:
@@ -35,23 +41,24 @@ Before you begin, ensure you have met the following requirements:
    pip install -r app/requirements.txt
    ```
 
-3. Set up your AWS credentials and S3 bucket name by creating a `.env` file in the `app/` directory. Example:
+3. Set up your AWS credentials and S3 bucket name by creating a `.env` file on your local machine and update the `ENV_Path` in `deploy.sh`. Example:
 
    ```plaintext
    AWS_ACCESS_KEY_ID=your_access_key_id
    AWS_SECRET_ACCESS_KEY=your_secret_access_key
    S3_BUCKET_NAME=your_bucket_name
    ```
+4. Place AWS RSA key file on your local machine and update the `RSA_Key` in `deploy.sh`.
 
 ## Usage
 
-1. Run the Flask application:
+1. Run the Flask application localy:
 
    ```bash
    python app.py
    ```
 
-   Alternatively, if you're using Docker, you can run the application as a Docker container:
+   Alternatively you can run the application as a Docker container on an AWS EC2:
 
    ```bash
    chmod u+x deploy.sh
@@ -77,12 +84,3 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-~/Documents/.env
-RSA_Key="~/.ssh/raz-key.pem"
-
-aws cli
-run_instance.sh
-
-change name to image_downloader
-route page when downloaded and add massage
