@@ -1,10 +1,11 @@
 #!/bin/bash
 
-INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
-RSA_Key="~/.ssh/raz-key.pem"
+# INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
+# RSA_Key="~/.ssh/raz-key.pem"
+$ENV=$1
 
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
-ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
+# scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
+# ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
 sudo apt update -y
 if ! command -v git &> /dev/null; then
     echo "Git is not installed. Installing Git..."
@@ -45,10 +46,17 @@ else
         echo "No changes in the repository."
     fi
 fi
+deploy () {
+if [[ $ENV == "test" ]]; then
+  docker-compose -f docker-compose.yml up -d
+elif [[ $ENV == "prod" ]]; then
+  docker-compose -f docker-compose.yml -f production.yml up -d
+fi
+}
 if sudo docker ps | grep -q image_downloader_app; then
     sudo docker-compose down
-    sudo docker-compose up -d
+    deploy
 else
-    sudo docker-compose up -d
+    deploy
 fi
-"
+# "
