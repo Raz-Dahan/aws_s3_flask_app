@@ -17,7 +17,7 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     depends_on:
-      - flask_app
+      - app
   grafana:
     image: grafana/grafana
     ports:
