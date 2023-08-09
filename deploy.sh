@@ -47,8 +47,8 @@ else
 fi
 if sudo docker ps | grep -q image_downloader_app; then
     sudo docker-compose -f docker-compose.yml -f production.yml down
-    sudo docker-compose -f docker-compose.yml -f production.yml up -d
+    sudo docker-compose -f docker-compose.yml -f production.yml up -d --scale app=3
 else
-    sudo docker-compose -f docker-compose.yml -f production.yml up -d
+    sudo docker-compose -f docker-compose.yml -f production.yml up -d --scale app=3
 fi
 "
