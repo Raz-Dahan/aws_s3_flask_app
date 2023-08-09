@@ -2,7 +2,6 @@
 
 INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 RSA_Key="~/.ssh/raz-key.pem"
-ENV=$1
 
 scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
 ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
@@ -46,19 +45,11 @@ else
         echo "No changes in the repository."
     fi
 fi
-deploy () {
-if [[ $ENV == "test" ]]; then
-  docker-compose -f docker-compose.yml up -d
-elif [[ $ENV == "prod" ]]; then
-  docker-compose -f docker-compose.yml -f production.yml up -d
-else
-  echo "Usage: $0 [test|prod]"
-fi
 }
 if sudo docker ps | grep -q image_downloader_app; then
-    sudo docker-compose down
-    deploy
+    sudo docker-compose -f docker-compose.yml -f production.yml down
+    sudo docker-compose -f docker-compose.yml -f production.yml up -d
 else
-    deploy
+    sudo docker-compose -f docker-compose.yml -f production.yml up -d
 fi
 "
