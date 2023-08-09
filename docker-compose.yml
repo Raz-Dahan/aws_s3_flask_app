@@ -6,4 +6,4 @@ services:
       dockerfile: Dockerfile
     image: image_downloader_app:latest
     ports:
-      - "80:80"
+      - "5000:5000"
