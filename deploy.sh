@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
-# RSA_Key="~/.ssh/raz-key.pem"
-$ENV=$1
+INSTANCE_IP=$(aws ec2 describe-instances --region eu-central-1 --filters Name=tag:tier,Values=app --query 'Reservations[].Instances[].PublicIpAddress' --output text)
+RSA_Key="~/.ssh/raz-key.pem"
+ENV=$1
 
-# scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
-# ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ~/Documents/.env ubuntu@$INSTANCE_IP:/home/ubuntu
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $RSA_Key ubuntu@$INSTANCE_IP "
 sudo apt update -y
 if ! command -v git &> /dev/null; then
     echo "Git is not installed. Installing Git..."
@@ -61,4 +61,4 @@ if sudo docker ps | grep -q image_downloader_app; then
 else
     deploy
 fi
-# "
+"
