@@ -6,3 +6,4 @@ services:
     image: image_downloader_app:latest
     ports:
       - '5000'
+    restart: always
