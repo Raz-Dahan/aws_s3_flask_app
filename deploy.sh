@@ -51,6 +51,8 @@ if [[ $ENV == "test" ]]; then
   docker-compose -f docker-compose.yml up -d
 elif [[ $ENV == "prod" ]]; then
   docker-compose -f docker-compose.yml -f production.yml up -d
+else
+  echo "Usage: $0 [test|prod]"
 fi
 }
 if sudo docker ps | grep -q image_downloader_app; then
