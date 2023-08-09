@@ -28,15 +28,15 @@ if ! command -v docker-compose &> /dev/null; then
 else
     echo 'Docker Compose is already installed.'
 fi
-if [ ! -d flask_image_downloader ]; then
+if [ ! -d image_downloader ]; then
     echo "Cloning repository..."
-    git clone https://github.com/Raz-Dahan/flask_image_downloader.git
-    cd flask_image_downloader
+    git clone https://github.com/Raz-Dahan/image_downloader.git
+    cd image_downloader
     cp /home/ubuntu/.env .env
     sudo docker-compose build
 else
     echo "Repository directory already exists. Pulling latest changes..."
-    cd flask_image_downloader
+    cd image_downloader
     if git pull --ff-only; then
         echo "Changes pulled successfully."
         cp /home/ubuntu/.env .env

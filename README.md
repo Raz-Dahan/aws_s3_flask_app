@@ -77,3 +77,12 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+~/Documents/.env
+RSA_Key="~/.ssh/raz-key.pem"
+
+aws cli
+run_instance.sh
+
+change name to image_downloader
+route page when downloaded and add massage
