@@ -45,7 +45,6 @@ else
         echo "No changes in the repository."
     fi
 fi
-}
 if sudo docker ps | grep -q image_downloader_app; then
     sudo docker-compose -f docker-compose.yml -f production.yml down
     sudo docker-compose -f docker-compose.yml -f production.yml up -d
