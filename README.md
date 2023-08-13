@@ -71,6 +71,12 @@ Before you begin, ensure you have met the following requirements on your system:
 
 4. If the image is found in the S3 bucket, it will be downloaded to your local machine.
 
+5. To access Prometheus and Grafana use `admin` as username and password in local machine via
+
+```
+ssh -i "<path to rsa key>"-L 9090:localhost:9090 -L 3000:localhost:3000 <vm hostname>@<vm ip>
+```
+
 ## Configuration
 
 - `app.py`: This is the main Flask application script that handles routing, user interface, and interaction with the S3 bucket. Modify this file to customize the behavior of the application.
