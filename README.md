@@ -55,7 +55,7 @@ Before you begin, ensure you have met the following requirements on your system:
 1. Run the Flask application localy:
 
    ```bash
-   python app.py
+   python3 app/app.py
    ```
 
    Alternatively you can run the application as a Docker container on an AWS EC2:
